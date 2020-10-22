@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
         checklistLister = new ChecklistLister(this, checklist, itemListsManager);
         checklist.setOnItemClickListener(checklistLister);
 
+
+        // ---------- 動作テスト用 ------------
         notifyChecklist("title", "text", 100, 20);
 
         ArrayList<String> items = new ArrayList<>();
         for(int i = 0; i < 5; i++){
-            items.add("item: " + i);
+            items.add("item: " + i + "\n2行目");
         }
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
         checklist.setAdapter(adapter);
@@ -54,5 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
+    }
+
+    public void deleteChecklist(View view){
+        checklistLister.deleteChecklist(view);
     }
 }

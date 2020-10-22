@@ -1,7 +1,6 @@
 package com.example.todochecklist;
 
-import android.widget.ListView;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemListsManager {
@@ -39,7 +38,7 @@ public class ItemListsManager {
         return itemListDB.getNumberOfCheckIsTrue(checklistName);
     }
 
-    public synchronized List<String> getChecklistNames(){
+    public synchronized ArrayList<String> getChecklistNames(){
         return itemListDB.getChecklistNames();
     }
 

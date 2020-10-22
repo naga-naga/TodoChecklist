@@ -7,4 +7,5 @@
     <color name="colorAdd">#00D1B2</color>
     <color name="colorApply">#209CEE</color>
     <color name="colorRename">#FFDD57</color>
+    <color name="colorChecklist">#DCFAFD</color>
 </resources>

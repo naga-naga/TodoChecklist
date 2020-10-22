@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ItemListsDatabase extends SQLiteOpenHelper {
@@ -166,8 +165,8 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
         return count;
     }
 
-    public List<String> getChecklistNames(){
-        List<String> ret_string = new ArrayList<>();
+    public ArrayList<String> getChecklistNames(){
+        ArrayList<String> ret_string = new ArrayList<>();
         String query = String.format("SELECT * FROM %s", TABLE_CHECKLISTNAMES);
 
         SQLiteDatabase db = this.getReadableDatabase();

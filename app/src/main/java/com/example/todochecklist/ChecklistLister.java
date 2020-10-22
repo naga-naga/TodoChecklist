@@ -6,6 +6,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.fragment.app.DialogFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -44,5 +46,10 @@ public class ChecklistLister implements AdapterView.OnItemClickListener {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mainActivity, android.R.layout.simple_list_item_1, items);
         checklistList.setAdapter(adapter);
+    }
+
+    void deleteChecklist(View view){
+        DialogFragment deleteDialogFragment = new DeleteDialogFragment(itemListsManager, this);
+        deleteDialogFragment.show(mainActivity.getSupportFragmentManager(), "DeleteChecklistDialog");
     }
 }
