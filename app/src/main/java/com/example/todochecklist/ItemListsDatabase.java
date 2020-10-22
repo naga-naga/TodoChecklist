@@ -42,7 +42,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
                 FIELD_CHECKLISTNAME + " TEXT PRIMARY KEY)", TABLE_CHECKLISTNAMES));
 
         db.execSQL(String.format("CREATE TABLE %s (" +
-                FIELD_ID + " PRIMARY KEY AUTOINCREMENT," +
+                FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 FIELD_CHECKLISTNAME + " TEXT REFERENCES %s(checklist_name) ON DELETE CASCADE ON UPDATE CASCADE," +
                 FIELD_CHECK + "check TEXT," +
                 FIELD_LABEL + " TEXT)", TABLE_ITEMLISTS, TABLE_CHECKLISTNAMES));
@@ -167,7 +167,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
     }
 
     public List<String> getChecklistNames(){
-        List<String> ret_string = new LinkedList<>();
+        List<String> ret_string = new ArrayList<>();
         String query = String.format("SELECT * FROM %s", TABLE_CHECKLISTNAMES);
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -190,7 +190,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
     }
 
     public List<ItemLists> getItemLists(String checklistName){
-        List<ItemLists> list = new LinkedList<>();
+        List<ItemLists> list = new ArrayList<>();
         String query = String.format("SELECT * FROM %s WHERE %s = %s",
                 TABLE_ITEMLISTS, FIELD_CHECKLISTNAME, checklistName);
 
@@ -217,5 +217,13 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
         }
 
         return list;
+    }
+
+    public String getChecklistNameAt(int position){
+        List<String> names = getChecklistNames();
+        if(names.size() >= position+1){
+            return names.get(position);
+        }
+        return null;
     }
 }

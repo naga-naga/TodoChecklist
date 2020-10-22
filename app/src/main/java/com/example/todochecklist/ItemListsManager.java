@@ -47,4 +47,8 @@ public class ItemListsManager {
         return itemListDB.getItemLists(checklistName);
     }
 
+    public synchronized String getChecklistNameAt(int position){
+        return itemListDB.getChecklistNameAt(position);
+    }
+
 }
