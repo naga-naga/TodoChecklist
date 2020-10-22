@@ -46,5 +46,5 @@ public class ItemListsManager {
     public synchronized List<ItemLists> getItemLists(String checklistName){
         return itemListDB.getItemLists(checklistName);
     }
-    
+
 }
