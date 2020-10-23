@@ -29,16 +29,26 @@ public class MainActivity extends AppCompatActivity {
         checklistLister = new ChecklistLister(this, checklist, itemListsManager);
         checklist.setOnItemClickListener(checklistLister);
 
+        if(savedInstanceState != null){
+            onRestoreInstanceState(savedInstanceState);
+        }
+
 
         // ---------- 動作テスト用 ------------
         notifyChecklist("title", "text", 100, 20);
 
-        ArrayList<String> items = new ArrayList<>();
-        for(int i = 0; i < 5; i++){
-            items.add("item: " + i + "\n2行目");
-        }
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
-        checklist.setAdapter(adapter);
+//        ArrayList<String> items = new ArrayList<>();
+//        for(int i = 0; i < 5; i++){
+//            items.add("item: " + i + "\n2行目");
+//        }
+//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
+//        checklist.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        checklistLister.updateListView();
     }
 
     void notifyChecklist(String title, String text, int max, int progress){
@@ -61,5 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void deleteChecklist(View view){
         checklistLister.deleteChecklist(view);
+    }
+
+    public void addChecklist(View view){
+        checklistLister.addChecklist(view);
     }
 }

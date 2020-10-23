@@ -1,12 +1,18 @@
 package com.example.todochecklist;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.fragment.app.DialogFragment;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +43,12 @@ public class ChecklistLister implements AdapterView.OnItemClickListener {
 
         ArrayList<String> items = new ArrayList<>();
         for(String item: checklists){
-            String label = String.format(Locale.US, "%s\n%d/%d",
-                    item,
-                    itemListsManager.getNumberOfCheckIsTrue(item),
-                    itemListsManager.getNumberOfCheck(item));
+//            String label = String.format(Locale.US, "%s\n%d/%d",
+//                    item,
+//                    itemListsManager.getNumberOfCheckIsTrue(item),
+//                    itemListsManager.getNumberOfCheck(item));
+//                    0, 0);
+            String label = item;
             items.add(label);
         }
 
@@ -51,5 +59,40 @@ public class ChecklistLister implements AdapterView.OnItemClickListener {
     void deleteChecklist(View view){
         DialogFragment deleteDialogFragment = new DeleteDialogFragment(itemListsManager, this);
         deleteDialogFragment.show(mainActivity.getSupportFragmentManager(), "DeleteChecklistDialog");
+    }
+
+    void addChecklist(View view){
+        final View addChecklistView = mainActivity.getLayoutInflater().inflate(R.layout.checklist_adder, null, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        builder.setTitle(R.string.add_checklist_title)
+                .setView(addChecklistView)
+                .setPositiveButton(R.string.add,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                TextInputEditText textInputEditText = (TextInputEditText)addChecklistView.findViewById(R.id.checklist_adder_text);
+                                String checklistName = textInputEditText.getText().toString();
+
+                                try {
+                                    if(!checklistName.equals("")){
+                                        itemListsManager.addChecklistName(checklistName);
+                                    }
+                                } catch (IllegalStateException e){
+                                    // Error
+                                }
+
+                                updateListView();
+                            }
+                        })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Nothing to do
+                            }
+                        })
+                .create()
+                .show();
     }
 }

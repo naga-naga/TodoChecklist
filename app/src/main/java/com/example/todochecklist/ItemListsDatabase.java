@@ -64,7 +64,22 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
 
             long id = db.insert(TABLE_CHECKLISTNAMES, null, values);
             if(id == -1){
-                throw new IllegalArgumentException("addChecklistName: cannot be inserted.");
+                throw new IllegalStateException("addChecklistName: cannot be inserted.");
+            }
+        } finally {
+            db.close();
+        }
+    }
+
+    public void addChecklistName(String checklistName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        try{
+            ContentValues values = new ContentValues();
+            values.put(FIELD_CHECKLISTNAME, checklistName);
+
+            long id = db.insert(TABLE_CHECKLISTNAMES, null, values);
+            if(id == -1){
+                throw new IllegalStateException("addChecklistName: cannot be inserted.");
             }
         } finally {
             db.close();
@@ -90,7 +105,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
 
     public void updateChecklistName(String oldName, String newName){
         SQLiteDatabase db = this.getWritableDatabase();
-        String whereClause = FIELD_CHECKLISTNAME + " = " + oldName;
+        String whereClause = FIELD_CHECKLISTNAME + " = '" + oldName + "'";
         try{
             ContentValues values = new ContentValues();
             values.put(FIELD_CHECKLISTNAME, newName);
@@ -102,7 +117,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
     }
 
     public void deleteChecklistNameWhereNameIs(String name){
-        String whereClause = FIELD_CHECKLISTNAME + " = " + name;
+        String whereClause = FIELD_CHECKLISTNAME + " = '" + name + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         try{
@@ -114,7 +129,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
     }
 
     public void deleteItem(String checklistName, String label){
-        String whereClause = FIELD_CHECKLISTNAME + " = " + checklistName + " AND " +
+        String whereClause = FIELD_CHECKLISTNAME + " = '" + checklistName + "' AND " +
                 FIELD_LABEL + " = " + label;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -127,7 +142,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
 
     public int getNumberOfCheck(String checklistName){
         int count = 0;
-        String query = String.format("SELECT count(*) FROM %s WHERE %s = %s",
+        String query = String.format("SELECT count(*) FROM %s WHERE %s = '%s'",
                 TABLE_ITEMLISTS, FIELD_CHECKLISTNAME, checklistName);
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -147,7 +162,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
 
     public int getNumberOfCheckIsTrue(String checklistName){
         int count = 0;
-        String query = String.format("SELECT count(*) FROM %s WHERE %s = %s AND %s = true",
+        String query = String.format("SELECT count(*) FROM %s WHERE %s = '%s' AND %s = 'true'",
                 TABLE_ITEMLISTS, FIELD_CHECKLISTNAME, checklistName, FIELD_CHECK);
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -190,7 +205,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
 
     public List<ItemLists> getItemLists(String checklistName){
         List<ItemLists> list = new ArrayList<>();
-        String query = String.format("SELECT * FROM %s WHERE %s = %s",
+        String query = String.format("SELECT * FROM %s WHERE %s = '%s'",
                 TABLE_ITEMLISTS, FIELD_CHECKLISTNAME, checklistName);
 
         SQLiteDatabase db = this.getReadableDatabase();

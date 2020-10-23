@@ -30,7 +30,7 @@ public class DeleteDialogFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("title")
+        builder.setTitle(R.string.delete_checklist_title)
                 .setMultiChoiceItems(names, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override

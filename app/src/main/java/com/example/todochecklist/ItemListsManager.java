@@ -14,6 +14,10 @@ public class ItemListsManager {
         itemListDB.addChecklistName(checklistNames);
     }
 
+    public synchronized void addChecklistName(String checklistName){
+        itemListDB.addChecklistName(checklistName);
+    }
+
     public synchronized void addItem(ItemLists itemLists){
         itemListDB.addItem(itemLists);
     }
