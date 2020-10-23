@@ -59,7 +59,7 @@
         app:layout_constraintVertical_bias="0.545" />
 
     <TextView
-        android:id="@+id/itemlist_checklist_text"
+        android:id="@+id/itemlist_checklist_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
