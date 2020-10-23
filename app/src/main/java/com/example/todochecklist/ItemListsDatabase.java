@@ -130,7 +130,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
 
     public void deleteItem(String checklistName, String label){
         String whereClause = FIELD_CHECKLISTNAME + " = '" + checklistName + "' AND " +
-                FIELD_LABEL + " = " + label;
+                FIELD_LABEL + " = '" + label + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         try{
