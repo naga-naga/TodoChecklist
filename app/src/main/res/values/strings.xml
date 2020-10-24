@@ -5,8 +5,9 @@
     <string name="rename">Rename</string>
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
-    <string name="add_checklist_hint">Input your item name</string>
+    <string name="add_checklist_hint">Input your checklist name</string>
     <string name="add_checklist_title">Add checklist</string>
+    <string name="add_item_hint">Input your item name</string>
     <string name="add_item_title">Add item</string>
     <string name="delete_checklist_title">Select items to delete</string>
 </resources>

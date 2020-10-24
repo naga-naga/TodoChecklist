@@ -16,17 +16,17 @@ public class ItemLister {
     private ItemListActivity itemListActivity = null;
     private ListView itemList = null;
     private ItemListsManager itemListsManager = null;
-    private String checklist_name = "";
+    private String checklistName = "";
 
-    public ItemLister(ItemListActivity itemListActivity, ListView listView, ItemListsManager itemListsManager, String checklist_name){
+    public ItemLister(ItemListActivity itemListActivity, ListView listView, ItemListsManager itemListsManager, String checklistName){
         this.itemListActivity = itemListActivity;
         this.itemList = listView;
         this.itemListsManager = itemListsManager;
-        this.checklist_name = checklist_name;
+        this.checklistName = checklistName;
     }
 
     void updateListView(){
-        List<ItemLists> itemLists = itemListsManager.getItemLists(checklist_name);
+        List<ItemLists> itemLists = itemListsManager.getItemLists(checklistName);
         ArrayList<Items> items = new ArrayList<>();
         CustomAdapter adapter = new CustomAdapter(itemListActivity);
 
@@ -44,7 +44,7 @@ public class ItemLister {
     }
 
     void addItem(View view) {
-        final View addItemView = itemListActivity.getLayoutInflater().inflate(R.layout.checklist_adder, null, false);
+        final View addItemView = itemListActivity.getLayoutInflater().inflate(R.layout.item_adder, null, false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(itemListActivity);
         builder.setTitle(R.string.add_item_title)
@@ -53,13 +53,13 @@ public class ItemLister {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                TextInputEditText textInputEditText = (TextInputEditText) addItemView.findViewById(R.id.checklist_adder_text);
+                                TextInputEditText textInputEditText = (TextInputEditText) addItemView.findViewById(R.id.item_adder_text);
                                 String itemName = textInputEditText.getText().toString();
 
                                 try {
                                     if (!itemName.equals("")) {
                                         ItemLists item = new ItemLists();
-                                        item.setChecklistName(checklist_name);
+                                        item.setChecklistName(checklistName);
                                         item.setCheck(false);
                                         item.setLabel(itemName);
                                         itemListsManager.addItem(item);
@@ -83,7 +83,7 @@ public class ItemLister {
     }
 
     void deleteItem(View view){
-        DialogFragment dialogFragment = new DeleteItemDialogFragment(itemListsManager, this, checklist_name);
+        DialogFragment dialogFragment = new DeleteItemDialogFragment(itemListsManager, this, checklistName);
         dialogFragment.show(itemListActivity.getSupportFragmentManager(), "DeleteItemDialog");
     }
 }

@@ -8,10 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
 public class ItemListActivity extends AppCompatActivity {
-    private String checklist_name;
+    private String checklistName;
     private ItemLister itemLister;
     private ItemListsManager itemListsManager;
 
@@ -21,15 +19,15 @@ public class ItemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_itemlist);
 
         Intent intent = getIntent();
-        checklist_name = intent.getStringExtra(ChecklistLister.CHECKLIST_NAME);
+        checklistName = intent.getStringExtra(ChecklistLister.CHECKLIST_NAME);
 
         itemListsManager = new ItemListsManager(this);
 
         TextView textView = (TextView)findViewById(R.id.itemlist_checklist_name);
-        textView.setText(checklist_name);
+        textView.setText(checklistName);
 
         ListView listView = (ListView)findViewById(R.id.itemlist_list);
-        itemLister = new ItemLister(this, listView, itemListsManager, checklist_name);
+        itemLister = new ItemLister(this, listView, itemListsManager, checklistName);
 
         // ---------- テスト用 ------------
 //        ListView listView = (ListView)findViewById(R.id.itemlist_list);
