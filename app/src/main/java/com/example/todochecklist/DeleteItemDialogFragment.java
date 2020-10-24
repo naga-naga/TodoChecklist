@@ -4,34 +4,33 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 
 import androidx.fragment.app.DialogFragment;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
-public class DeleteDialogFragment extends DialogFragment {
+public class DeleteItemDialogFragment extends DialogFragment {
+    private String checklistName;
     private ItemListsManager itemListsManager = null;
-    private ChecklistLister checklistLister = null;
+    private ItemLister itemLister = null;
 
-    DeleteDialogFragment(ItemListsManager itemListsManager, ChecklistLister checklistLister){
+    DeleteItemDialogFragment(ItemListsManager itemListsManager, ItemLister itemLister, String checklistName){
         this.itemListsManager = itemListsManager;
-        this.checklistLister = checklistLister;
+        this.itemLister = itemLister;
+        this.checklistName = checklistName;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         final ArrayList<Integer> selectedItems = new ArrayList<>();
-        ArrayList<String> checklistNames = itemListsManager.getChecklistNames();
+        ArrayList<String> itemLabels = itemListsManager.getItemLabels(checklistName);
 
-        final String[] names = checklistNames.toArray(new String[checklistNames.size()]);
+        final String[] labels = itemLabels.toArray(new String[itemLabels.size()]);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle(R.string.delete_checklist_title)
-                .setMultiChoiceItems(names, null,
+                .setMultiChoiceItems(labels, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
@@ -47,9 +46,9 @@ public class DeleteDialogFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 for(int num: selectedItems){
-                                    itemListsManager.deleteChecklistNameWhereNameIs(names[num]);
+                                    itemListsManager.deleteItem(checklistName, labels[num]);
                                 }
-                                checklistLister.updateListView();
+                                itemLister.updateListView();
                             }
                         })
                 .setNegativeButton("Cancel",
@@ -62,5 +61,4 @@ public class DeleteDialogFragment extends DialogFragment {
 
         return builder.create();
     }
-
 }

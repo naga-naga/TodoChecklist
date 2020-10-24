@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.widget.ListView;
 
+import androidx.fragment.app.DialogFragment;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -78,5 +80,10 @@ public class ItemLister {
                         })
                 .create()
                 .show();
+    }
+
+    void deleteItem(View view){
+        DialogFragment dialogFragment = new DeleteItemDialogFragment(itemListsManager, this, checklist_name);
+        dialogFragment.show(itemListActivity.getSupportFragmentManager(), "DeleteItemDialog");
     }
 }

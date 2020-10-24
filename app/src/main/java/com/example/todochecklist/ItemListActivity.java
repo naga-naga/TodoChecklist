@@ -22,7 +22,6 @@ public class ItemListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         checklist_name = intent.getStringExtra(ChecklistLister.CHECKLIST_NAME);
-//        itemListsManager = (ItemListsManager)intent.getSerializableExtra(ChecklistLister.ITEM_LIST_MANAGER);
 
         itemListsManager = new ItemListsManager(this);
 
@@ -56,5 +55,9 @@ public class ItemListActivity extends AppCompatActivity {
 
     public void addItem(View view){
         itemLister.addItem(view);
+    }
+
+    public void deleteItem(View view){
+        itemLister.deleteItem(view);
     }
 }

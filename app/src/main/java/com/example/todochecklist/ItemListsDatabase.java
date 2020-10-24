@@ -233,6 +233,30 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
         return list;
     }
 
+    public ArrayList<String> getItemLabels(String checklistName){
+        ArrayList<String> labels = new ArrayList<>();
+        String query = String.format("SELECT %s FROM %s WHERE %s = '%s'",
+                FIELD_LABEL, TABLE_ITEMLISTS, FIELD_CHECKLISTNAME, checklistName);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            Cursor cursor = db.rawQuery(query, null);
+            try {
+                if(cursor.moveToFirst()){
+                    do {
+                        labels.add(cursor.getString(0));
+                    } while (cursor.moveToNext());
+                }
+            } finally {
+                cursor.close();
+            }
+        } finally {
+            db.close();
+        }
+
+        return labels;
+    }
+
     public String getChecklistNameAt(int position){
         List<String> names = getChecklistNames();
         if(names.size() >= position+1){
