@@ -11,6 +11,7 @@ import android.widget.ListView;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,8 @@ public class ChecklistLister implements AdapterView.OnItemClickListener {
 
     void addChecklist(View view){
         final View addChecklistView = mainActivity.getLayoutInflater().inflate(R.layout.checklist_adder, null, false);
+        final TextInputLayout textInputLayout = (TextInputLayout)addChecklistView.findViewById(R.id.checklist_adder_layout);
+        textInputLayout.setHint(mainActivity.getString(R.string.add_checklist_hint));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
         builder.setTitle(R.string.add_checklist_title)

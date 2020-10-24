@@ -8,6 +8,7 @@ import android.widget.ListView;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,9 @@ public class ItemLister {
     }
 
     void addItem(View view) {
-        final View addItemView = itemListActivity.getLayoutInflater().inflate(R.layout.item_adder, null, false);
+        final View addItemView = itemListActivity.getLayoutInflater().inflate(R.layout.checklist_adder, null, false);
+        final TextInputLayout textInputLayout = (TextInputLayout)addItemView.findViewById(R.id.checklist_adder_layout);
+        textInputLayout.setHint(itemListActivity.getString(R.string.add_item_hint));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(itemListActivity);
         builder.setTitle(R.string.add_item_title)
@@ -53,7 +56,7 @@ public class ItemLister {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                TextInputEditText textInputEditText = (TextInputEditText) addItemView.findViewById(R.id.item_adder_text);
+                                TextInputEditText textInputEditText = (TextInputEditText) addItemView.findViewById(R.id.checklist_adder_text);
                                 String itemName = textInputEditText.getText().toString();
 
                                 try {

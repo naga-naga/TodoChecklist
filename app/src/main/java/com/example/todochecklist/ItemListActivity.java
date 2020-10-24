@@ -62,7 +62,9 @@ public class ItemListActivity extends AppCompatActivity {
 
     public void renameChecklistName(View view){
         final View renameView = getLayoutInflater().inflate(R.layout.checklist_adder, null, false);
+        final TextInputLayout textInputLayout = (TextInputLayout)renameView.findViewById(R.id.checklist_adder_layout);
         final TextInputEditText textInputEditText = (TextInputEditText)renameView.findViewById(R.id.checklist_adder_text);
+        textInputLayout.setHint(getString(R.string.add_checklist_hint));
         textInputEditText.setText(checklistName);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
