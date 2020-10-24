@@ -20,6 +20,7 @@ import java.util.Locale;
 
 public class ChecklistLister implements AdapterView.OnItemClickListener {
     public static final String CHECKLIST_NAME = "com.example.todochecklist.CHECKLIST_NAME";
+//    public static final String ITEM_LIST_MANAGER = "com.example.todochecklist.ITEM_LIST_MANAGER";
 
     private MainActivity mainActivity = null;
     private ListView checklistList = null;
@@ -35,6 +36,7 @@ public class ChecklistLister implements AdapterView.OnItemClickListener {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         Intent intent = new Intent(mainActivity, ItemListActivity.class);
         intent.putExtra(CHECKLIST_NAME, itemListsManager.getChecklistNameAt(position));
+//        intent.putExtra(ITEM_LIST_MANAGER, itemListsManager);
         mainActivity.startActivity(intent);
     }
 

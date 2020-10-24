@@ -1,6 +1,11 @@
 package com.example.todochecklist;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.view.View;
 import android.widget.ListView;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,5 +39,44 @@ public class ItemLister {
         }
 
         adapter.notifyDataSetChanged();
+    }
+
+    void addItem(View view) {
+        final View addItemView = itemListActivity.getLayoutInflater().inflate(R.layout.checklist_adder, null, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(itemListActivity);
+        builder.setTitle(R.string.add_item_title)
+                .setView(addItemView)
+                .setPositiveButton(R.string.add,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                TextInputEditText textInputEditText = (TextInputEditText) addItemView.findViewById(R.id.checklist_adder_text);
+                                String itemName = textInputEditText.getText().toString();
+
+                                try {
+                                    if (!itemName.equals("")) {
+                                        ItemLists item = new ItemLists();
+                                        item.setChecklistName(checklist_name);
+                                        item.setCheck(false);
+                                        item.setLabel(itemName);
+                                        itemListsManager.addItem(item);
+                                    }
+                                } catch (IllegalStateException e) {
+                                    // Error
+                                }
+
+                                updateListView();
+                            }
+                        })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Nothing to do
+                            }
+                        })
+                .create()
+                .show();
     }
 }

@@ -18,7 +18,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
     // fields
     private static final String FIELD_ID = "id";
     private static final String FIELD_CHECKLISTNAME = "checklist_name";
-    private static final String FIELD_CHECK = "check";
+    private static final String FIELD_CHECK = "is_checked";
     private static final String FIELD_LABEL = "label";
 
     public ItemListsDatabase(Context context){
@@ -43,7 +43,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
         db.execSQL(String.format("CREATE TABLE %s (" +
                 FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 FIELD_CHECKLISTNAME + " TEXT REFERENCES %s(checklist_name) ON DELETE CASCADE ON UPDATE CASCADE," +
-                FIELD_CHECK + "check TEXT," +
+                FIELD_CHECK + " TEXT," +
                 FIELD_LABEL + " TEXT)", TABLE_ITEMLISTS, TABLE_CHECKLISTNAMES));
     }
 
@@ -91,7 +91,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
         try{
             ContentValues values = new ContentValues();
             values.put(FIELD_CHECKLISTNAME, itemLists.getChecklistName());
-            values.put(FIELD_CHECK, itemLists.getCheck());
+            values.put(FIELD_CHECK, itemLists.getCheckAsString());
             values.put(FIELD_LABEL, itemLists.getLabel());
 
             long id = db.insert(TABLE_ITEMLISTS, null, values);

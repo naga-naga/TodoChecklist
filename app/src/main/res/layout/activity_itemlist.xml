@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorAdd"
+        android:onClick="addItem"
         android:text="@string/add"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/itemlist_delete"

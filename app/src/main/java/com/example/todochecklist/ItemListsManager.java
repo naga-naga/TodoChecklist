@@ -1,12 +1,15 @@
 package com.example.todochecklist;
 
+import android.content.Context;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemListsManager {
     private ItemListsDatabase itemListDB = null;
 
-    public ItemListsManager(MainActivity context){
+    public ItemListsManager(Context context){
         itemListDB = new ItemListsDatabase(context);
     }
 

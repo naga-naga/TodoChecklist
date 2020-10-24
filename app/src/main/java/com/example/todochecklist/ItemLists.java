@@ -26,6 +26,10 @@ public class ItemLists {
         return check;
     }
 
+    public String getCheckAsString(){
+        return String.valueOf(check);
+    }
+
     public void setCheck(boolean check){
         this.check = check;
     }
