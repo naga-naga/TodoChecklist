@@ -73,12 +73,12 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     void notifyChecklist(String title, String text, int max, int progress){
-        Intent intent = new Intent(this, ItemListActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "MyChannelID")
-                .setSmallIcon(R.drawable.ic_launcher_foreground) // アイコン．必須．
+                .setSmallIcon(R.drawable.checkbox_icon) // アイコン．必須．
                 .setContentTitle(title)
                 .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
