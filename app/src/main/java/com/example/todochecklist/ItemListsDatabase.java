@@ -116,6 +116,20 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
         }
     }
 
+    public void updateCheck(String checklistName, String label, boolean check){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = String.format("%s = '%s' AND %s = '%s'",
+                FIELD_CHECKLISTNAME, checklistName, FIELD_LABEL, label);
+        try{
+            ContentValues values = new ContentValues();
+            values.put(FIELD_CHECK, String.valueOf(check));
+
+            int nrows = db.update(TABLE_ITEMLISTS, values, whereClause, null);
+        } finally {
+            db.close();
+        }
+    }
+
     public void deleteChecklistNameWhereNameIs(String name){
         String whereClause = FIELD_CHECKLISTNAME + " = '" + name + "'";
 

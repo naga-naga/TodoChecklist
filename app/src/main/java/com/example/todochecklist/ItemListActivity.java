@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,12 +18,15 @@ import androidx.core.app.NotificationCompat;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Locale;
+
 public class ItemListActivity extends AppCompatActivity {
     private String checklistName;
     private String newChecklistName;
     private ItemLister itemLister;
     private ItemListsManager itemListsManager;
     private TextView checklistNameTextView;
+    private ListView itemListerListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -39,8 +43,8 @@ public class ItemListActivity extends AppCompatActivity {
         checklistNameTextView = (TextView)findViewById(R.id.itemlist_checklist_name);
         checklistNameTextView.setText(checklistName);
 
-        ListView listView = (ListView)findViewById(R.id.itemlist_list);
-        itemLister = new ItemLister(this, listView, itemListsManager, checklistName);
+        itemListerListView = (ListView)findViewById(R.id.itemlist_list);
+        itemLister = new ItemLister(this, itemListerListView, itemListsManager, checklistName);
 
     }
 
@@ -54,7 +58,18 @@ public class ItemListActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         itemListsManager.updateChecklistName(checklistName, newChecklistName);
-        notifyChecklist(newChecklistName, "text", itemListsManager.getNumberOfCheck(newChecklistName), itemListsManager.getNumberOfCheckIsTrue(newChecklistName));
+
+        for(int i = 0; i < itemListerListView.getCount(); i++){
+            CheckBox checkBox = itemListerListView.getChildAt(i).findViewById(R.id.item_checkbox);
+            itemListsManager.updateCheck(newChecklistName, checkBox.getText().toString(), checkBox.isChecked());
+        }
+
+        int numOfCheck = itemListsManager.getNumberOfCheck(newChecklistName);
+        int numOfTrue = itemListsManager.getNumberOfCheckIsTrue(newChecklistName);
+        notifyChecklist(newChecklistName,
+                String.format(Locale.US,"%d/%d", numOfTrue, numOfCheck),
+                numOfCheck,
+                numOfTrue);
     }
 
     void notifyChecklist(String title, String text, int max, int progress){

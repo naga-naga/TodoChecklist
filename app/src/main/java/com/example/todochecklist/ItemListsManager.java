@@ -29,6 +29,10 @@ public class ItemListsManager {
         itemListDB.updateChecklistName(oldName, newName);
     }
 
+    public synchronized void updateCheck(String checklistName, String label, boolean check){
+        itemListDB.updateCheck(checklistName, label, check);
+    }
+
     public synchronized void deleteChecklistNameWhereNameIs(String name){
         itemListDB.deleteChecklistNameWhereNameIs(name);
     }
