@@ -25,10 +25,10 @@ public class ItemListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itemlist);
 
-        newChecklistName = "";
-
         Intent intent = getIntent();
         checklistName = intent.getStringExtra(ChecklistLister.CHECKLIST_NAME);
+
+        newChecklistName = checklistName;
 
         itemListsManager = new ItemListsManager(this);
 
@@ -38,20 +38,6 @@ public class ItemListActivity extends AppCompatActivity {
         ListView listView = (ListView)findViewById(R.id.itemlist_list);
         itemLister = new ItemLister(this, listView, itemListsManager, checklistName);
 
-        // ---------- テスト用 ------------
-//        ListView listView = (ListView)findViewById(R.id.itemlist_list);
-//        ArrayList<Items> items = new ArrayList<>();
-//        CustomAdapter adapter = new CustomAdapter(this);
-//
-//        adapter.setItems(items);
-//        listView.setAdapter(adapter);
-//
-//        for(int i = 0; i < 5; i++){
-//            Items item = new Items();
-//            item.setCheckboxText("Checkbox" + (i+1));
-//            items.add(item);
-//        }
-//        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -76,8 +62,8 @@ public class ItemListActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 newChecklistName = textInputEditText.getText().toString();
 
-                                if(!newChecklistName.equals("")){
-                                    checklistNameTextView.setText(newChecklistName);
+                                if(!(newChecklistName.equals("") || newChecklistName.matches("^\\s+$"))){
+                                    checklistNameTextView.setText(newChecklistName.trim().replace("\n", ""));
                                 }
                             }
                         })

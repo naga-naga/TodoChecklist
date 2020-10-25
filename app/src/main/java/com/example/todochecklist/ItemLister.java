@@ -60,11 +60,11 @@ public class ItemLister {
                                 String itemName = textInputEditText.getText().toString();
 
                                 try {
-                                    if (!itemName.equals("")) {
+                                    if (!(itemName.equals("") || itemName.matches("^\\s+$"))) {
                                         ItemLists item = new ItemLists();
                                         item.setChecklistName(checklistName);
                                         item.setCheck(false);
-                                        item.setLabel(itemName);
+                                        item.setLabel(itemName.trim().replace("\n", ""));
                                         itemListsManager.addItem(item);
                                     }
                                 } catch (IllegalStateException e) {

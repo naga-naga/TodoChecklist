@@ -75,8 +75,8 @@ public class ChecklistLister implements AdapterView.OnItemClickListener {
                                 String checklistName = textInputEditText.getText().toString();
 
                                 try {
-                                    if(!checklistName.equals("")){
-                                        itemListsManager.addChecklistName(checklistName);
+                                    if(!(checklistName.equals("") || checklistName.matches("^\\s+$"))){
+                                        itemListsManager.addChecklistName(checklistName.trim().replace("\n", ""));
                                     }
                                 } catch (IllegalStateException e){
                                     // Error
