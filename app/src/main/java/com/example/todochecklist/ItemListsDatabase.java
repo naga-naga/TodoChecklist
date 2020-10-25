@@ -149,7 +149,9 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
         try{
             Cursor cursor = db.rawQuery(query, null);
             try{
-                count = Integer.parseInt(cursor.getString(0));
+                if(cursor.moveToFirst()){
+                    count = Integer.parseInt(cursor.getString(0));
+                }
             } finally {
                 cursor.close();
             }
@@ -169,7 +171,9 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
         try{
             Cursor cursor = db.rawQuery(query, null);
             try {
-                count = Integer.parseInt(cursor.getString(0));
+                if(cursor.moveToFirst()){
+                    count = Integer.parseInt(cursor.getString(0));
+                }
             } finally {
                 cursor.close();
             }

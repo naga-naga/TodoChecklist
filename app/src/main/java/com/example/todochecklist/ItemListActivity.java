@@ -1,5 +1,8 @@
 package com.example.todochecklist;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -44,6 +48,30 @@ public class ItemListActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         itemLister.updateListView();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        notifyChecklist(checklistName, "text", itemListsManager.getNumberOfCheck(checklistName), itemListsManager.getNumberOfCheckIsTrue(checklistName));
+    }
+
+    void notifyChecklist(String title, String text, int max, int progress){
+        Intent intent = new Intent(this, ItemListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "MyChannelID")
+                .setSmallIcon(R.drawable.ic_launcher_foreground) // アイコン．必須．
+                .setContentTitle(title)
+                .setContentText(text)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setProgress(max, progress, false); // true にすると通知タップ時に自動で通知を消す．
+
+        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
 
     public void renameChecklistName(View view){
