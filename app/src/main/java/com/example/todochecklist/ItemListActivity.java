@@ -53,7 +53,8 @@ public class ItemListActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        notifyChecklist(checklistName, "text", itemListsManager.getNumberOfCheck(checklistName), itemListsManager.getNumberOfCheckIsTrue(checklistName));
+        itemListsManager.updateChecklistName(checklistName, newChecklistName);
+        notifyChecklist(newChecklistName, "text", itemListsManager.getNumberOfCheck(newChecklistName), itemListsManager.getNumberOfCheckIsTrue(newChecklistName));
     }
 
     void notifyChecklist(String title, String text, int max, int progress){

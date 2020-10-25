@@ -34,6 +34,10 @@ public class ItemLists {
         this.check = check;
     }
 
+    public void setCheckByString(String check){
+        this.check = Boolean.valueOf(check);
+    }
+
     public String getLabel(){
         return label;
     }

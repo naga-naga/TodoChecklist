@@ -222,7 +222,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
                         itemLists = new ItemLists();
                         itemLists.setId(Integer.parseInt(cursor.getString(0)));
                         itemLists.setChecklistName(cursor.getString(1));
-                        itemLists.setChecklistName(cursor.getString(2));
+                        itemLists.setCheckByString(cursor.getString(2));
                         itemLists.setLabel(cursor.getString(3));
                         list.add(itemLists);
                     } while (cursor.moveToNext());
