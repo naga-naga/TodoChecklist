@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/itemlist_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginStart="36dp"
         android:layout_marginBottom="24dp"
         android:background="@color/colorDelete"
@@ -21,28 +21,16 @@
 
     <Button
         android:id="@+id/itemlist_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="36dp"
         android:background="@color/colorAdd"
         android:onClick="addItem"
         android:text="@string/add"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/itemlist_delete"
-        app:layout_constraintEnd_toStartOf="@+id/itemlist_apply"
-        app:layout_constraintStart_toEndOf="@+id/itemlist_delete"
-        app:layout_constraintTop_toTopOf="@+id/itemlist_delete" />
-
-    <Button
-        android:id="@+id/itemlist_apply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:background="#209cee"
-        android:text="@string/apply"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/itemlist_add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/itemlist_add" />
+        app:layout_constraintTop_toTopOf="@+id/itemlist_delete" />
 
     <ListView
         android:id="@+id/itemlist_list"
