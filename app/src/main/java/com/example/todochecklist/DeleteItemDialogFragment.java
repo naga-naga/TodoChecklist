@@ -41,7 +41,7 @@ public class DeleteItemDialogFragment extends DialogFragment {
                                 }
                             }
                         })
-                .setPositiveButton("OK",
+                .setPositiveButton(R.string.delete,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

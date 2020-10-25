@@ -27,6 +27,7 @@ public class ItemListActivity extends AppCompatActivity {
     private ItemListsManager itemListsManager;
     private TextView checklistNameTextView;
     private ListView itemListerListView;
+    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -46,6 +47,7 @@ public class ItemListActivity extends AppCompatActivity {
         itemListerListView = findViewById(R.id.itemlist_list);
         itemLister = new ItemLister(this, itemListerListView, itemListsManager, checklistName);
 
+        notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     @Override
@@ -57,6 +59,8 @@ public class ItemListActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
+        notificationManager.cancel(itemListsManager.getIdOfChecklistName(checklistName));
+
         itemListsManager.updateChecklistName(checklistName, newChecklistName);
 
         for(int i = 0; i < itemListerListView.getCount(); i++){
@@ -87,8 +91,7 @@ public class ItemListActivity extends AppCompatActivity {
                 .setAutoCancel(true)
                 .setProgress(max, progress, false); // true にすると通知タップ時に自動で通知を消す．
 
-        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(id, builder.build());
+        notificationManager.notify(id, builder.build());
     }
 
     public void renameChecklistName(View view){

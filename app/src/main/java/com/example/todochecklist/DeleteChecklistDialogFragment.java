@@ -2,15 +2,14 @@ package com.example.todochecklist;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 
 import androidx.fragment.app.DialogFragment;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DeleteChecklistDialogFragment extends DialogFragment {
     private ItemListsManager itemListsManager = null;
@@ -42,7 +41,7 @@ public class DeleteChecklistDialogFragment extends DialogFragment {
                                 }
                             }
                         })
-                .setPositiveButton("OK",
+                .setPositiveButton(R.string.delete,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
