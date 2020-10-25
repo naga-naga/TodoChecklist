@@ -40,10 +40,10 @@ public class ItemListActivity extends AppCompatActivity {
 
         itemListsManager = new ItemListsManager(this);
 
-        checklistNameTextView = (TextView)findViewById(R.id.itemlist_checklist_name);
+        checklistNameTextView = findViewById(R.id.itemlist_checklist_name);
         checklistNameTextView.setText(checklistName);
 
-        itemListerListView = (ListView)findViewById(R.id.itemlist_list);
+        itemListerListView = findViewById(R.id.itemlist_list);
         itemLister = new ItemLister(this, itemListerListView, itemListsManager, checklistName);
 
     }
@@ -69,10 +69,11 @@ public class ItemListActivity extends AppCompatActivity {
         notifyChecklist(newChecklistName,
                 String.format(Locale.US,"%d/%d", numOfTrue, numOfCheck),
                 numOfCheck,
-                numOfTrue);
+                numOfTrue,
+                itemListsManager.getIdOfChecklistName(newChecklistName));
     }
 
-    void notifyChecklist(String title, String text, int max, int progress){
+    void notifyChecklist(String title, String text, int max, int progress, int id){
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -87,7 +88,7 @@ public class ItemListActivity extends AppCompatActivity {
                 .setProgress(max, progress, false); // true にすると通知タップ時に自動で通知を消す．
 
         NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        manager.notify(id, builder.build());
     }
 
     public void renameChecklistName(View view){

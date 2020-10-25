@@ -53,6 +53,10 @@ public class ItemListsManager {
         return itemListDB.getChecklistNames();
     }
 
+    public synchronized int getIdOfChecklistName(String checklistName){
+        return itemListDB.getIdOfChecklistName(checklistName);
+    }
+
     public synchronized List<ItemLists> getItemLists(String checklistName){
         return itemListDB.getItemLists(checklistName);
     }

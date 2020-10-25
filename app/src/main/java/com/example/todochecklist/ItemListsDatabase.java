@@ -38,7 +38,8 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         db.execSQL(String.format("CREATE TABLE %s (" +
-                FIELD_CHECKLISTNAME + " TEXT PRIMARY KEY)", TABLE_CHECKLISTNAMES));
+                FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                FIELD_CHECKLISTNAME + " TEXT NOT NULL UNIQUE)", TABLE_CHECKLISTNAMES));
 
         db.execSQL(String.format("CREATE TABLE %s (" +
                 FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -208,7 +209,7 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
             try {
                 if(cursor.moveToFirst()){
                     do {
-                        ret_string.add(cursor.getString(0));
+                        ret_string.add(cursor.getString(1));
                     } while (cursor.moveToNext());
                 }
             } finally {
@@ -219,6 +220,28 @@ public class ItemListsDatabase extends SQLiteOpenHelper {
         }
 
         return ret_string;
+    }
+
+    public int getIdOfChecklistName(String checklistName){
+        int id = -1;
+        String query = String.format("SELECT %s FROM %s WHERE %s = '%s'",
+                FIELD_ID, TABLE_CHECKLISTNAMES, FIELD_CHECKLISTNAME, checklistName);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            Cursor cursor = db.rawQuery(query, null);
+            try {
+                if(cursor.moveToFirst()){
+                    id = Integer.parseInt(cursor.getString(0));
+                }
+            } finally {
+                cursor.close();
+            }
+        } finally {
+            db.close();
+        }
+
+        return id;
     }
 
     public List<ItemLists> getItemLists(String checklistName){

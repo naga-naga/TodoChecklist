@@ -41,11 +41,6 @@ public class ChecklistLister implements AdapterView.OnItemClickListener {
 
         ArrayList<String> items = new ArrayList<>();
         for(String item: checklists){
-//            String label = String.format(Locale.US, "%s\n%d/%d",
-//                    item,
-//                    itemListsManager.getNumberOfCheckIsTrue(item),
-//                    itemListsManager.getNumberOfCheck(item));
-//                    0, 0);
             String label = item;
             items.add(label);
         }
