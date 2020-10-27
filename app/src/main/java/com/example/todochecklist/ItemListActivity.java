@@ -27,7 +27,7 @@ public class ItemListActivity extends AppCompatActivity {
     private ItemListsManager itemListsManager;
     private TextView checklistNameTextView;
     private ListView itemListerListView;
-    private NotificationManager notificationManager;
+    private static NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -66,6 +66,7 @@ public class ItemListActivity extends AppCompatActivity {
         for(int i = 0; i < itemListerListView.getCount(); i++){
             CheckBox checkBox = itemListerListView.getChildAt(i).findViewById(R.id.item_checkbox);
             itemListsManager.updateCheck(newChecklistName, checkBox.getText().toString(), checkBox.isChecked());
+            System.out.println(i);
         }
 
         int numOfCheck = itemListsManager.getNumberOfCheck(newChecklistName);
@@ -92,6 +93,10 @@ public class ItemListActivity extends AppCompatActivity {
                 .setProgress(max, progress, false); // true にすると通知タップ時に自動で通知を消す．
 
         notificationManager.notify(id, builder.build());
+    }
+
+    public void deleteNotification(int id){
+        notificationManager.cancel(id);
     }
 
     public void renameChecklistName(View view){
