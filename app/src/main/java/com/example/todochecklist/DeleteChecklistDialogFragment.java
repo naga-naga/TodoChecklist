@@ -2,8 +2,6 @@ package com.example.todochecklist;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -45,9 +43,7 @@ public class DeleteChecklistDialogFragment extends DialogFragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ItemListActivity itemListActivity = new ItemListActivity();
                                 for(int num: selectedItems){
-                                    itemListActivity.deleteNotification(itemListsManager.getIdOfChecklistName(names[num]));
                                     itemListsManager.deleteChecklistNameWhereNameIs(names[num]);
                                 }
                                 checklistLister.updateListView();
