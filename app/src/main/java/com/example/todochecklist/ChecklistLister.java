@@ -70,8 +70,14 @@ public class ChecklistLister implements AdapterView.OnItemClickListener {
                                 String checklistName = textInputEditText.getText().toString();
 
                                 try {
+                                    checklistName = checklistName.trim()
+                                            .replace("\n", "")
+                                            .replace("'", "")
+                                            .replace("--", "")
+                                            .replace(";", "");
+
                                     if(!(checklistName.equals("") || checklistName.matches("^\\s+$"))){
-                                        itemListsManager.addChecklistName(checklistName.trim().replace("\n", ""));
+                                        itemListsManager.addChecklistName(checklistName);
                                     }
                                 } catch (IllegalStateException e){
                                     // Error

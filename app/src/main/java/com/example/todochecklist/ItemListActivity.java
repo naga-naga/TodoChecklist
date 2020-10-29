@@ -115,8 +115,16 @@ public class ItemListActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 newChecklistName = textInputEditText.getText().toString();
 
+                                newChecklistName = newChecklistName.trim()
+                                        .replace("\n", "")
+                                        .replace("'", "")
+                                        .replace("--", "")
+                                        .replace(";", "");
+
                                 if(!(newChecklistName.equals("") || newChecklistName.matches("^\\s+$"))){
-                                    checklistNameTextView.setText(newChecklistName.trim().replace("\n", ""));
+                                    checklistNameTextView.setText(newChecklistName);
+                                } else {
+                                    newChecklistName = checklistName;
                                 }
                             }
                         })
